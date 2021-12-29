@@ -1,10 +1,8 @@
 package de.mrvinrsk.challengeeins.main;
 
 import de.mrvinrsk.challengebase.util.ChallengeEventManager;
-import de.mrvinrsk.challengeeins.events.challengeEvents.CE_DoubleDamage;
-import de.mrvinrsk.challengeeins.events.challengeEvents.CE_DropItems;
-import de.mrvinrsk.challengeeins.events.challengeEvents.CE_LaggyChests;
-import de.mrvinrsk.challengeeins.events.challengeEvents.CE_WeakArms;
+import de.mrvinrsk.challengeeins.events.challengeEvents.negative.*;
+import de.mrvinrsk.challengeeins.events.challengeEvents.positive.CE_QuickMining;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -43,10 +41,16 @@ public class Main extends JavaPlugin {
     }
 
     private void registerEvents() {
+        // POSITIVE
+        eventManager.registerEvent(new CE_QuickMining(), this);
+
+        // NEGATIVE
         eventManager.registerEvent(new CE_DoubleDamage(), this);
         eventManager.registerEvent(new CE_DropItems(), this);
         eventManager.registerEvent(new CE_LaggyChests(), this);
         eventManager.registerEvent(new CE_WeakArms(), this);
+        eventManager.registerEvent(new CE_ExplosiveOres(), this);
+        eventManager.registerEvent(new CE_LargerPortals(), this);
     }
 
 }

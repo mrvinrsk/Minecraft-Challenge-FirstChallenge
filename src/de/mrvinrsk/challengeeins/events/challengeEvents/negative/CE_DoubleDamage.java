@@ -1,8 +1,9 @@
-package de.mrvinrsk.challengeeins.events.challengeEvents;
+package de.mrvinrsk.challengeeins.events.challengeEvents.negative;
 
 import de.chatvergehen.spigotapi.util.instances.Item;
 import de.mrvinrsk.challengebase.util.ChallengeEvent;
 import de.mrvinrsk.challengebase.util.ChallengeEventManager;
+import de.mrvinrsk.challengebase.util.ChallengeEventType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -49,6 +50,11 @@ public class CE_DoubleDamage implements ChallengeEvent {
         potion.setItemMeta(meta);
 
         return potion;
+    }
+
+    @Override
+    public ChallengeEventType getType() {
+        return ChallengeEventType.NEGATIVE;
     }
 
     @EventHandler

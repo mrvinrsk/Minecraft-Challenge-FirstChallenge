@@ -1,7 +1,8 @@
-package de.mrvinrsk.challengeeins.events.challengeEvents;
+package de.mrvinrsk.challengeeins.events.challengeEvents.negative;
 
 import de.mrvinrsk.challengebase.util.ChallengeEvent;
 import de.mrvinrsk.challengebase.util.ChallengeEventManager;
+import de.mrvinrsk.challengebase.util.ChallengeEventType;
 import de.mrvinrsk.challengeeins.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -44,6 +45,11 @@ public class CE_DropItems implements ChallengeEvent {
     @Override
     public ItemStack getIcon() {
         return new de.chatvergehen.spigotapi.util.instances.Item(Material.DIRT).getItemStack();
+    }
+
+    @Override
+    public ChallengeEventType getType() {
+        return ChallengeEventType.NEGATIVE;
     }
 
     @EventHandler

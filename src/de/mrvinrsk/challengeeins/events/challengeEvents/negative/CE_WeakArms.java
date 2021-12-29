@@ -1,8 +1,9 @@
-package de.mrvinrsk.challengeeins.events.challengeEvents;
+package de.mrvinrsk.challengeeins.events.challengeEvents.negative;
 
 import de.chatvergehen.spigotapi.util.instances.Item;
 import de.mrvinrsk.challengebase.util.ChallengeEvent;
 import de.mrvinrsk.challengebase.util.ChallengeEventManager;
+import de.mrvinrsk.challengebase.util.ChallengeEventType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -38,6 +39,11 @@ public class CE_WeakArms implements ChallengeEvent {
     @Override
     public ItemStack getIcon() {
         return new Item(Material.IRON_SWORD).getItemStack();
+    }
+
+    @Override
+    public ChallengeEventType getType() {
+        return ChallengeEventType.NEGATIVE;
     }
 
     @EventHandler

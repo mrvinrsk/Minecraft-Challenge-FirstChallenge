@@ -1,11 +1,8 @@
-package de.mrvinrsk.challengeeins.events.challengeEvents;
+package de.mrvinrsk.challengeeins.events.challengeEvents.negative;
 
 import de.chatvergehen.spigotapi.util.instances.Item;
 import de.chatvergehen.spigotapi.util.random.RandomNumber;
-import de.mrvinrsk.challengebase.util.ChallengeEvent;
-import de.mrvinrsk.challengebase.util.ChallengeEventManager;
-import de.mrvinrsk.challengebase.util.Gameplay;
-import de.mrvinrsk.challengebase.util.GameplayMessageType;
+import de.mrvinrsk.challengebase.util.*;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
@@ -41,6 +38,11 @@ public class CE_LaggyChests implements ChallengeEvent {
     @Override
     public ItemStack getIcon() {
         return new Item(Material.CHEST).getItemStack();
+    }
+
+    @Override
+    public ChallengeEventType getType() {
+        return ChallengeEventType.NEGATIVE;
     }
 
     @EventHandler
