@@ -4,7 +4,7 @@ import de.chatvergehen.spigotapi.util.instances.Item;
 import de.mrvinrsk.challengebase.util.ChallengeEvent;
 import de.mrvinrsk.challengebase.util.ChallengeEventManager;
 import de.mrvinrsk.challengebase.util.ChallengeEventType;
-import org.bukkit.Bukkit;
+import de.mrvinrsk.challengeeins.main.Main;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -22,8 +22,8 @@ public class CE_QuickMining implements ChallengeEvent {
 
     private ChallengeEventManager eventManager = ChallengeEventManager.getManager();
 
-    private int maxHeight = 40;
-    private int radius = 3;
+    private int maxHeight = 45;
+    private int radius = 5;
 
     @Override
     public String getEventName() {
@@ -41,9 +41,9 @@ public class CE_QuickMining implements ChallengeEvent {
         description.add("Beim Abbauen / Platzieren eines Blocks im Bereich");
         description.add("0-" + maxHeight + " auf der Y-Achse werden alle Änderungen");
 
-        if(radius == 1) {
+        if (radius == 1) {
             description.add("jeweils in den angrenzenden Chunk übernommen.");
-        }else {
+        } else {
             description.add("jeweils in die angrenzenden " + radius + " Chunks übernommen.");
         }
 
@@ -106,6 +106,11 @@ public class CE_QuickMining implements ChallengeEvent {
         for (Chunk chunk : nearby) {
             Block remove = chunk.getBlock(x, y, z);
             remove.setType(material);
+
+            if (material != Material.AIR) {
+                remove.getState().setData(b.getState().getData());
+                remove.getState().setBlockData(b.getState().getBlockData());
+            }
         }
     }
 
@@ -113,10 +118,10 @@ public class CE_QuickMining implements ChallengeEvent {
     public void onPlace(BlockPlaceEvent e) {
         Block b = e.getBlockPlaced();
 
-        if(b.getLocation().getBlockY() <= maxHeight) {
+        if (b.getLocation().getBlockY() <= maxHeight) {
             cloneBlock(e.getPlayer(), b, b.getType(), 2);
 
-            eventManager.triggerEvent(e.getPlayer(), this);
+            eventManager.triggerEvent(e.getPlayer(), this, Main.getPlugin());
         }
     }
 
@@ -124,10 +129,10 @@ public class CE_QuickMining implements ChallengeEvent {
     public void onBreak(BlockBreakEvent e) {
         Block b = e.getBlock();
 
-        if(b.getLocation().getBlockY() <= maxHeight) {
+        if (b.getLocation().getBlockY() <= maxHeight) {
             cloneBlock(e.getPlayer(), b, Material.AIR, 2);
 
-            eventManager.triggerEvent(e.getPlayer(), this);
+            eventManager.triggerEvent(e.getPlayer(), this, Main.getPlugin());
         }
     }
 

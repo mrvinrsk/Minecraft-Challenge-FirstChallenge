@@ -4,6 +4,7 @@ import de.chatvergehen.spigotapi.util.instances.Item;
 import de.mrvinrsk.challengebase.util.ChallengeEvent;
 import de.mrvinrsk.challengebase.util.ChallengeEventManager;
 import de.mrvinrsk.challengebase.util.ChallengeEventType;
+import de.mrvinrsk.challengeeins.main.Main;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -58,7 +59,7 @@ public class CE_WeakArms implements ChallengeEvent {
         if(e.getEntity().getKiller() != null) {
             Player killer = e.getEntity().getKiller();
 
-            eventManager.triggerEvent(killer, this);
+            eventManager.triggerEvent(killer, this, Main.getPlugin());
         }
     }
 

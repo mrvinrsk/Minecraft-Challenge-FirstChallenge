@@ -105,7 +105,7 @@ public class CE_LargerPortals implements ChallengeEvent {
                     }
                 }.runTaskTimer(plugin, 0, 2);
 
-                eventManager.triggerEvent(p, this);
+                eventManager.triggerEvent(p, this, Main.getPlugin());
 
                 gameplay.sendMessage(p, GameplayMessageType.SYSTEM, "Das Portal ist zu klein.");
             }

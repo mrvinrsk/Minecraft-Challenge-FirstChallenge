@@ -58,7 +58,7 @@ public class CE_DropItems implements ChallengeEvent {
 
         final Item item = e.getItemDrop();
         item.setPickupDelay(99999);
-        eventManager.triggerEvent(p, this);
+        eventManager.triggerEvent(p, this, Main.getPlugin());
 
         Bukkit.getScheduler().runTaskLater(plugin, bukkitTask -> launch(item), 20L);
     }
@@ -76,14 +76,30 @@ public class CE_DropItems implements ChallengeEvent {
                 item.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, item.getLocation(), 5, .25, .25, .25, .05);
 
                 if (++iteration == 20) {
-                    item.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, item.getLocation(), 100, .6D, .6D, .6D, .15);
-                    item.getWorld().playSound(item.getLocation(), Sound.ENTITY_ITEM_BREAK, 2, 1);
-                    item.remove();
+
+                    iteration /= 2;
+
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            iteration--;
+
+                            if (iteration >= 0) {
+                                item.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, item.getLocation(), 100, .6D, .6D, .6D, .15);
+                                item.getWorld().playSound(item.getLocation(), Sound.ENTITY_ITEM_BREAK, 2, 1);
+                                item.remove();
+                                this.cancel();
+                            } else {
+                                item.getWorld().spawnParticle(Particle.CLOUD, item.getLocation(), 10, .3D, .3D, .3D, .05);
+                                item.getWorld().playSound(item.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 2, 2);
+                            }
+                        }
+                    }.runTaskTimer(Main.getPlugin(), 10, 2);
 
                     this.cancel();
                 }
             }
-        }.runTaskTimer(plugin, 0, 1);
+        }.runTaskTimer(plugin, 0, 2);
     }
 
 }

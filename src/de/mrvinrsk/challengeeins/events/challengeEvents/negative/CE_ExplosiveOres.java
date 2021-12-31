@@ -115,7 +115,7 @@ public class CE_ExplosiveOres implements ChallengeEvent {
                         }
                     }.runTaskLater(plugin, 5);
 
-                    eventManager.triggerEvent(p, this);
+                    eventManager.triggerEvent(p, this, Main.getPlugin());
                 }
             }
         } else {

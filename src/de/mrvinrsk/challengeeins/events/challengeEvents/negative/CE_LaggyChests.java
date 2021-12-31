@@ -3,6 +3,7 @@ package de.mrvinrsk.challengeeins.events.challengeEvents.negative;
 import de.chatvergehen.spigotapi.util.instances.Item;
 import de.chatvergehen.spigotapi.util.random.RandomNumber;
 import de.mrvinrsk.challengebase.util.*;
+import de.mrvinrsk.challengeeins.main.Main;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
@@ -53,7 +54,7 @@ public class CE_LaggyChests implements ChallengeEvent {
                     if (RandomNumber.rndinteger(1, 100) <= 40) {
                         e.setCancelled(true);
 
-                        eventManager.triggerEvent(e.getPlayer(), this);
+                        eventManager.triggerEvent(e.getPlayer(), this, Main.getPlugin());
 
                         gameplay.sendMessage(e.getPlayer(), GameplayMessageType.SYSTEM, "Diese Kiste scheint grade zu klemmen...");
                         e.getPlayer().getWorld().playSound(e.getClickedBlock().getLocation(), Sound.BLOCK_WOOD_STEP, 2, 1);
