@@ -20,13 +20,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CE_ExplosiveOres implements ChallengeEvent {
+public class CE_ExplosiveOres implements PercentageChallengeEvent {
 
     private ChallengeEventManager eventManager = ChallengeEventManager.getManager();
     private Gameplay gameplay = Gameplay.getInstance();
     private Plugin plugin = Main.getPlugin();
-
-    private double percentage = 15.;
 
     @Override
     public String getEventName() {
@@ -39,10 +37,9 @@ public class CE_ExplosiveOres implements ChallengeEvent {
     }
 
     @Override
-    public List<String> getDescription() {
+    public List<String> getDescription(Player player) {
         return Arrays.asList(
-                "Seltene Erze haben beim Abbauen eine " + percentage + "%",
-                "Wahrscheinlichkeit zu explodieren."
+                "Seltene Erze können beim Abbauen explodieren."
         );
     }
 
@@ -74,6 +71,7 @@ public class CE_ExplosiveOres implements ChallengeEvent {
     public void onBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
         Block b = e.getBlock();
+        double percentage = eventManager.getPercentage(p, this);
 
         if (!fused.contains(b)) {
             if (ores.contains(b.getType())) {
@@ -124,4 +122,8 @@ public class CE_ExplosiveOres implements ChallengeEvent {
         }
     }
 
+    @Override
+    public double getBasePercentage() {
+        return 15.;
+    }
 }

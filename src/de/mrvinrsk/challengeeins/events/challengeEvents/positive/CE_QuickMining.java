@@ -36,7 +36,7 @@ public class CE_QuickMining implements ChallengeEvent {
     }
 
     @Override
-    public List<String> getDescription() {
+    public List<String> getDescription(Player player) {
         List<String> description = new ArrayList<>();
         description.add("Beim Abbauen / Platzieren eines Blocks im Bereich");
         description.add("0-" + maxHeight + " auf der Y-Achse werden alle Änderungen");
@@ -106,11 +106,6 @@ public class CE_QuickMining implements ChallengeEvent {
         for (Chunk chunk : nearby) {
             Block remove = chunk.getBlock(x, y, z);
             remove.setType(material);
-
-            if (material != Material.AIR) {
-                remove.getState().setData(b.getState().getData());
-                remove.getState().setBlockData(b.getState().getBlockData());
-            }
         }
     }
 

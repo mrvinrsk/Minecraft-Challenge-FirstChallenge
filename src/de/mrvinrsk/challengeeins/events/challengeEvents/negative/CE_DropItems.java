@@ -1,13 +1,11 @@
 package de.mrvinrsk.challengeeins.events.challengeEvents.negative;
 
+import de.chatvergehen.spigotapi.util.locations.LocationHelper;
 import de.mrvinrsk.challengebase.util.ChallengeEvent;
 import de.mrvinrsk.challengebase.util.ChallengeEventManager;
 import de.mrvinrsk.challengebase.util.ChallengeEventType;
 import de.mrvinrsk.challengeeins.main.Main;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +33,7 @@ public class CE_DropItems implements ChallengeEvent {
     }
 
     @Override
-    public List<String> getDescription() {
+    public List<String> getDescription(Player player) {
         return Arrays.asList(
                 "Du kannst keine Items droppen; du musst wohl oder übel",
                 "andere Wege finden Items mit deinen Mitspielern zu teilen..."
@@ -65,41 +63,29 @@ public class CE_DropItems implements ChallengeEvent {
 
     public void launch(Item item) {
         item.setGravity(false);
-        item.setVelocity(item.getVelocity().setX(0).setY(.35).setZ(0));
-        item.getWorld().playSound(item.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1, 1);
+
+        item.setVelocity(item.getVelocity().setX(0).setY(.4).setZ(0));
+        item.getWorld().playSound(item.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 2, 2);
 
         new BukkitRunnable() {
-            int iteration = 0;
+
+            int runs = 15;
 
             @Override
             public void run() {
-                item.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, item.getLocation(), 5, .25, .25, .25, .05);
+                if (runs > 0) {
+                    item.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, item.getLocation(), 5, .05, .05, .05, .025);
+                    runs--;
+                } else {
+                    item.remove();
 
-                if (++iteration == 20) {
-
-                    iteration /= 2;
-
-                    new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            iteration--;
-
-                            if (iteration >= 0) {
-                                item.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, item.getLocation(), 100, .6D, .6D, .6D, .15);
-                                item.getWorld().playSound(item.getLocation(), Sound.ENTITY_ITEM_BREAK, 2, 1);
-                                item.remove();
-                                this.cancel();
-                            } else {
-                                item.getWorld().spawnParticle(Particle.CLOUD, item.getLocation(), 10, .3D, .3D, .3D, .05);
-                                item.getWorld().playSound(item.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 2, 2);
-                            }
-                        }
-                    }.runTaskTimer(Main.getPlugin(), 10, 2);
+                    item.getWorld().playSound(item.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_BLAST, 2, 1);
+                    item.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, item.getLocation(), 50, .25, .25, .25, .05);
 
                     this.cancel();
                 }
             }
-        }.runTaskTimer(plugin, 0, 2);
+        }.runTaskTimer(plugin, 2, 2);
     }
 
 }

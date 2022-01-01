@@ -7,6 +7,7 @@ import de.mrvinrsk.challengebase.util.PointEventType;
 import de.mrvinrsk.challengeeins.main.Main;
 import org.bukkit.Material;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
@@ -39,7 +40,7 @@ public class PE_MobKill implements PointEarningEvent {
     }
 
     @Override
-    public List<String> getDescription() {
+    public List<String> getDescription(Player player) {
         return Arrays.asList(
                 "Beim Besiegen jedes Monsters erhälst",
                 "du jeweils " + getPoints() + " " + (getPoints() == 1 ? "Punkt" : "Punkte") + "."

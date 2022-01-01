@@ -6,6 +6,7 @@ import de.mrvinrsk.challengebase.util.*;
 import de.mrvinrsk.challengeeins.main.Main;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -30,7 +31,7 @@ public class CE_LaggyChests implements ChallengeEvent {
     }
 
     @Override
-    public List<String> getDescription() {
+    public List<String> getDescription(Player player) {
         return Arrays.asList(
                 "Manche Truhen klemmen ab und zu mal..."
         );

@@ -28,7 +28,7 @@ public class CE_HeavyInventory implements ChallengeEvent {
     }
 
     @Override
-    public List<String> getDescription() {
+    public List<String> getDescription(Player player) {
         return Arrays.asList(
                 "Pro " + eachSlot + " belegte Slots erhälst du eine stärkere",
                 "Stufe vom Langsamkeits Effekt."

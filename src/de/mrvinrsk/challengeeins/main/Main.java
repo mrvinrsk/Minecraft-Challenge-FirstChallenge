@@ -3,6 +3,7 @@ package de.mrvinrsk.challengeeins.main;
 import de.mrvinrsk.challengebase.util.ChallengeEventManager;
 import de.mrvinrsk.challengeeins.events.challengeEvents.negative.*;
 import de.mrvinrsk.challengeeins.events.challengeEvents.pointsEvents.positive.PE_MobKill;
+import de.mrvinrsk.challengeeins.events.challengeEvents.positive.CE_LowerPercentages;
 import de.mrvinrsk.challengeeins.events.challengeEvents.positive.CE_QuickMining;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -45,6 +46,7 @@ public class Main extends JavaPlugin {
     private void registerEvents() {
         // POSITIVE
         eventManager.registerEvent(new CE_QuickMining(), this);
+        eventManager.registerEvent(new CE_LowerPercentages(), this);
 
         // NEGATIVE
         eventManager.registerEvent(new CE_DropItems(), this);

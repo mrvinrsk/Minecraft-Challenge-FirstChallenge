@@ -30,7 +30,7 @@ public class CE_WeakArms implements ChallengeEvent {
     }
 
     @Override
-    public List<String> getDescription() {
+    public List<String> getDescription(Player player) {
         return Arrays.asList(
                 "Du teilst bei jedem Schlag nur den",
                 "halben Schaden aus."

@@ -37,7 +37,7 @@ public class CE_LargerPortals implements ChallengeEvent {
     }
 
     @Override
-    public List<String> getDescription() {
+    public List<String> getDescription(Player player) {
         return Arrays.asList(
                 "Nether Portale funktionieren erst ab einer",
                 "Größe von " + x + "x" + y + " Blöcken."

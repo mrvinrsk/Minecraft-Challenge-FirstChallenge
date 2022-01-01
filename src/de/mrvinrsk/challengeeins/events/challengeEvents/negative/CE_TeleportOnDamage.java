@@ -33,7 +33,7 @@ public class CE_TeleportOnDamage implements ChallengeEvent {
     }
 
     @Override
-    public List<String> getDescription() {
+    public List<String> getDescription(Player player) {
         return Arrays.asList(
                 "Jedes mal, wenn du Schaden nimmst und weniger als " + (threshold / 2) + " " + ((threshold / 2) == 1 ? "Herz" : "Herzen"),
                 "hast, wirst du an eine zufällige Stelle in der Welt,",
