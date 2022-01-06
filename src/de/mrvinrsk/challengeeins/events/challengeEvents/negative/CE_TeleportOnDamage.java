@@ -5,6 +5,7 @@ import de.mrvinrsk.challengebase.util.*;
 import de.mrvinrsk.challengeeins.main.Main;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -18,9 +19,9 @@ public class CE_TeleportOnDamage implements ChallengeEvent {
     private ChallengeEventManager eventManager = ChallengeEventManager.getManager();
     private Gameplay gameplay = Gameplay.getInstance();
 
-    private Integer radius = 123;
-    private Double threshold = 8.;
-    private Double heal = 3.;
+    private int radius = 85;
+    private double threshold = 7.;
+    private double heal = 5.;
 
     @Override
     public String getEventName() {
@@ -59,17 +60,9 @@ public class CE_TeleportOnDamage implements ChallengeEvent {
 
             if (!(e.getDamage() >= p.getHealth())) {
                 if (!p.isDead()) {
-                    gameplay.sendMessage(p, GameplayMessageType.SYSTEM, "Du hast noch " + (p.getHealth()-e.getFinalDamage()) + " §rLeben.");
-
                     if (p.getHealth() < threshold) {
-                        Location next = p.getLocation().add(RandomNumber.rndinteger(-radius, radius), RandomNumber.rndinteger(-radius, radius), RandomNumber.rndinteger(-radius, radius));
-                        next.setY(next.getWorld().getHighestBlockYAt(next.getBlockX(), next.getBlockZ()) + 3);
-
-                        p.teleport(next);
-                        p.setHealth(p.getHealth() + heal);
-
-                        eventManager.triggerEvent(p, this, Main.getPlugin());
-                        gameplay.sendMessage(p, GameplayMessageType.SYSTEM, "Du wurdest teleportiert, da du Schaden bekommen hast, während du weniger als §c" + (threshold / 2) + " " + ((threshold / 2) == 1 ? "Herz" : "Herzen") + " §rhattest.");
+                        p.setVelocity(p.getVelocity().multiply(3).setY(.75));
+                        gameplay.sendMessage(p, GameplayMessageType.SYSTEM, "");
                     }
                 }
             }

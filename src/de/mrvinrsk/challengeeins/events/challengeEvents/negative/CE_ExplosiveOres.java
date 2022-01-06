@@ -5,6 +5,7 @@ import de.chatvergehen.spigotapi.util.locations.LocationHelper;
 import de.chatvergehen.spigotapi.util.random.RandomNumber;
 import de.mrvinrsk.challengebase.util.*;
 import de.mrvinrsk.challengeeins.main.Main;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -65,7 +66,7 @@ public class CE_ExplosiveOres implements PercentageChallengeEvent {
             Material.ANCIENT_DEBRIS
     );
 
-    private List<Block> fused = new ArrayList<>();
+    private List<Location> fused = new ArrayList<>();
 
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
@@ -73,12 +74,12 @@ public class CE_ExplosiveOres implements PercentageChallengeEvent {
         Block b = e.getBlock();
         double percentage = eventManager.getPercentage(p, this);
 
-        if (!fused.contains(b)) {
+        if (!fused.contains(b.getLocation())) {
             if (ores.contains(b.getType())) {
                 if (RandomNumber.rnddouble(1., 100.) <= percentage) {
                     e.setCancelled(true);
                     
-                    fused.add(b);
+                    fused.add(b.getLocation());
                     b.getWorld().playSound(b.getLocation(), Sound.ITEM_FLINTANDSTEEL_USE, 2, 1);
 
                     new BukkitRunnable() {
@@ -88,23 +89,28 @@ public class CE_ExplosiveOres implements PercentageChallengeEvent {
 
                             new BukkitRunnable() {
 
-                                int run = 30;
+                                int run = 25;
+                                Material mat = b.getType();
 
                                 @Override
                                 public void run() {
-                                    b.getWorld().spawnParticle(Particle.ASH, LocationHelper.getCenter3D(b.getLocation()), 75, .75, .75, .75, .075);
+                                    b.getWorld().spawnParticle(Particle.SMOKE_NORMAL, LocationHelper.getCenter3D(b.getLocation()), 50, .5, .5, .5, .075);
                                     if(run % 4 == 0) {
-                                        b.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, LocationHelper.getCenter3D(b.getLocation()), 5, 1.5, 1.5, 1.5, .125);
+                                        b.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, LocationHelper.getCenter3D(b.getLocation()), 5, 1.5, 1.5, 1.5, .075);
+                                        b.setType(Material.RED_WOOL);
+                                    }else {
+                                        b.setType(mat);
                                     }
-                                    b.getWorld().playSound(b.getLocation(), Sound.BLOCK_DISPENSER_DISPENSE, 2, 2);
+                                    b.getWorld().playSound(b.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 2, 1);
 
                                     if(--run == 0) {
                                         new BukkitRunnable() {
                                             @Override
                                             public void run() {
-                                                b.getWorld().createExplosion(b.getLocation(), 6.75F, true, true);
+                                                fused.remove(b.getLocation());
+                                                b.getWorld().createExplosion(b.getLocation(), 4.25F, true, true);
                                             }
-                                        }.runTaskLater(plugin, 15);
+                                        }.runTaskLater(plugin, 20);
 
                                         this.cancel();
                                     }
@@ -124,6 +130,6 @@ public class CE_ExplosiveOres implements PercentageChallengeEvent {
 
     @Override
     public double getBasePercentage() {
-        return 15.;
+        return 20.;
     }
 }

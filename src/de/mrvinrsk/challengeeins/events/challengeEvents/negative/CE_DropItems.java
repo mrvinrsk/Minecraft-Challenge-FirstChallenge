@@ -74,13 +74,13 @@ public class CE_DropItems implements ChallengeEvent {
             @Override
             public void run() {
                 if (runs > 0) {
-                    item.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, item.getLocation(), 5, .05, .05, .05, .025);
+                    item.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, item.getLocation(), 10, .075, .075, .075, .04);
                     runs--;
                 } else {
                     item.remove();
 
                     item.getWorld().playSound(item.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_BLAST, 2, 1);
-                    item.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, item.getLocation(), 50, .25, .25, .25, .05);
+                    item.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, item.getLocation(), 50, .4, .4, .4, .075);
 
                     this.cancel();
                 }

@@ -50,7 +50,11 @@ public class CE_WeakArms implements ChallengeEvent {
     @EventHandler
     public void damage(EntityDamageByEntityEvent e) {
         if(e.getDamager() instanceof Player) {
-            e.setDamage(e.getFinalDamage() / 2);
+            if(e.getFinalDamage() / 2 >= 1) {
+                e.setDamage(e.getFinalDamage() / 2);
+            }else {
+                e.setDamage(1);
+            }
         }
     }
 

@@ -21,7 +21,7 @@ public class PE_MobKill implements PointEarningEvent {
 
     @Override
     public int getPoints() {
-        return 2;
+        return 3;
     }
 
     @Override
